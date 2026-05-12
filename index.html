@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<!-- Mopp Quote Tool v1 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#3A7A45">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mopp Quote">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Mopp Quote</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzNBN0E0NSIvPjx0ZXh0IHg9IjI1NiIgeT0iMzUwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjMwMCIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPk08L3RleHQ+PC9zdmc+">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzNBN0E0NSIvPjx0ZXh0IHg9IjI1NiIgeT0iMzUwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjMwMCIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPk08L3RleHQ+PC9zdmc+">
+<link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"Mopp Quote Tool","short_name":"Mopp Quote","start_url":"./?o=1","scope":"./","display":"standalone","background_color":"%23ffffff","theme_color":"%233A7A45","orientation":"portrait","icons":[{"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzNBN0E0NSIvPjx0ZXh0IHg9IjI1NiIgeT0iMzUwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjMwMCIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPk08L3RleHQ+PC9zdmc+","sizes":"any","type":"image/svg+xml"}]}'>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --green: #3A7A45;
+  --green-dark: #2d5e36;
+  --green-light: #e8f1ea;
+  --bg: #fafaf7;
+  --surface: #ffffff;
+  --surface-2: #f4f3ee;
+  --text: #1a1a1a;
+  --text-2: #6b6b66;
+  --text-3: #9a9a93;
+  --border: rgba(0,0,0,0.08);
+  --border-2: rgba(0,0,0,0.16);
+  --good: #1d9e75;
+  --warn: #c97a13;
+  --bad: #c0392b;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+body { padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
+.app { max-width: 460px; margin: 0 auto; padding: 16px 14px 24px; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo { width: 32px; height: 32px; border-radius: 8px; background: var(--green); color: white; font-weight: 700; font-size: 18px; display: flex; align-items: center; justify-content: center; line-height: 1; }
+.title { font-size: 17px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+.title .sub { display: block; font-size: 11px; color: var(--text-3); font-weight: 400; margin-top: 1px; }
+.history-btn { background: none; border: 0.5px solid var(--border-2); color: var(--text-2); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+.history-btn:active { background: var(--surface-2); }
+.lbl { font-size: 10px; color: var(--text-2); font-weight: 600; margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; justify-content: space-between; }
+.lbl .info { width: 16px; height: 16px; border-radius: 50%; background: var(--surface-2); color: var(--text-2); font-size: 10px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 600; }
+.section { margin-bottom: 18px; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill {
+  flex: 1 1 auto; min-width: 70px; min-height: 44px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px; font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  color: var(--text);
+  user-select: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.05s, background 0.1s;
+}
+.pill .sub { font-size: 11px; color: var(--text-3); font-weight: 400; margin-left: 4px; }
+.pill.on { background: var(--green); border-color: var(--green); color: white; }
+.pill.on .sub { color: rgba(255,255,255,0.8); }
+.pill:active { transform: scale(0.97); }
+.svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.svc-grid .pill { min-height: 52px; flex-direction: column; gap: 2px; padding: 8px; }
+.svc-grid .pill .sub { margin-left: 0; font-size: 10px; }
+.freq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.size-grid .pill { min-width: 0; padding: 10px 4px; font-size: 13px; }
+.addons-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.addons-grid .pill { flex: 0 1 auto; padding: 8px 12px; font-size: 13px; font-weight: 400; min-height: 38px; }
+.addons-grid .pill .price { font-size: 11px; color: var(--text-3); margin-left: 4px; }
+.addons-grid .pill.on .price { color: rgba(255,255,255,0.85); }
+.room-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.room-label { color: var(--text-2); font-size: 13px; min-width: 86px; }
+.stepper { display: inline-flex; align-items: center; border: 0.5px solid var(--border-2); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.stepper button { width: 36px; height: 36px; background: var(--surface); border: none; font-size: 18px; cursor: pointer; color: var(--text); padding: 0; line-height: 1; }
+.stepper button:active { background: var(--surface-2); }
+.stepper .val { min-width: 32px; text-align: center; font-size: 14px; font-weight: 500; }
+.room-hint { font-size: 11px; color: var(--text-3); }
+.discount-row { display: flex; align-items: center; gap: 12px; }
+.discount-row input[type=range] {
+  flex: 1; -webkit-appearance: none; appearance: none;
+  height: 6px; border-radius: 3px; background: var(--surface-2); outline: none;
+}
+.discount-row input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--green); cursor: pointer; border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.discount-row input[type=range]::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--green); cursor: pointer; border: 2px solid white;
+}
+.discount-out { font-size: 14px; font-weight: 600; min-width: 40px; text-align: right; color: var(--green); }
+.quote-card {
+  background: var(--surface); border-radius: 14px; padding: 20px;
+  border: 0.5px solid var(--border);
+  margin-top: 8px;
+}
+.quote-head { font-size: 10px; color: var(--text-2); margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+.quote-num { font-size: 42px; font-weight: 600; line-height: 1; margin: 0; letter-spacing: -0.02em; }
+.quote-strk { font-size: 20px; color: var(--text-3); text-decoration: line-through; margin-right: 10px; vertical-align: 8px; font-weight: 400; }
+.quote-meta { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--text-2); flex-wrap: wrap; }
+.quote-meta strong { color: var(--text); font-weight: 600; }
+.owner-toggle { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 0.5px solid var(--border); }
+.ot-lbl { font-size: 13px; color: var(--text-2); }
+.toggle { width: 40px; height: 22px; border-radius: 11px; background: rgba(0,0,0,0.15); position: relative; cursor: pointer; transition: background 0.15s; flex-shrink: 0; }
+.toggle.on { background: var(--green); }
+.toggle::after { content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%; background: white; top: 2px; left: 2px; transition: transform 0.15s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.toggle.on::after { transform: translateX(18px); }
+.owner-panel { margin-top: 16px; padding-top: 16px; border-top: 0.5px solid var(--border); display: none; }
+.owner-panel.shown { display: block; }
+.owner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.metric { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; }
+.metric .m-lbl { font-size: 10px; color: var(--text-2); margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; }
+.metric .m-val { font-size: 18px; font-weight: 600; margin: 0; line-height: 1.2; }
+.m-val.good { color: var(--good); }
+.m-val.warn { color: var(--warn); }
+.m-val.bad { color: var(--bad); }
+.actions { display: flex; gap: 6px; margin-top: 16px; }
+.actions button {
+  flex: 1; padding: 11px;
+  font-size: 13px; font-weight: 500;
+  border: 0.5px solid var(--border-2);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--text);
+}
+.actions button:active { background: var(--surface-2); }
+.actions button.primary { background: var(--green); color: white; border-color: var(--green); }
+.actions button.primary:active { background: var(--green-dark); }
+.copied { color: var(--good) !important; border-color: var(--good) !important; }
+.modal-bg {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none; align-items: flex-end; justify-content: center;
+  z-index: 10;
+}
+.modal-bg.shown { display: flex; }
+.modal {
+  background: var(--surface);
+  width: 100%; max-width: 460px;
+  border-radius: 16px 16px 0 0;
+  padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+  max-height: 80vh; overflow-y: auto;
+}
+.modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.modal-title { font-size: 16px; font-weight: 600; margin: 0; }
+.modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-2); padding: 4px 8px; line-height: 1; }
+.modal-body { font-size: 14px; color: var(--text); line-height: 1.5; }
+.modal-body ul { margin: 8px 0; padding-left: 18px; }
+.modal-body li { margin-bottom: 4px; }
+.history-list { display: flex; flex-direction: column; gap: 6px; }
+.history-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 12px; background: var(--surface-2); border-radius: 10px;
+}
+.history-item .h-num { font-size: 16px; font-weight: 600; }
+.history-item .h-meta { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+.history-empty { text-align: center; color: var(--text-3); font-size: 13px; padding: 24px 0; }
+@media (max-width: 360px) {
+  .size-grid { grid-template-columns: repeat(3, 1fr); }
+  .quote-num { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<header class="header">
+  <div class="brand">
+    <div class="logo">M</div>
+    <h1 class="title">Quote tool<span class="sub" id="mode-tag">Customer view</span></h1>
+  </div>
+  <button class="history-btn" id="history-btn">Recent</button>
+</header>
+
+<div class="section">
+  <p class="lbl">Service<span class="info" data-info="service">?</span></p>
+  <div class="svc-grid" id="svc">
+    <div class="pill on" data-svc="standard">Standard</div>
+    <div class="pill" data-svc="deep">Deep clean</div>
+    <div class="pill" data-svc="movein">Move in / out</div>
+    <div class="pill" data-svc="postcon">Post-construction</div>
+  </div>
+</div>
+
+<div class="section" id="freq-section">
+  <p class="lbl">Frequency</p>
+  <div class="freq-grid">
+    <div class="pill" data-freq="onetime">One-time</div>
+    <div class="pill on" data-freq="biweekly">Bi-weekly</div>
+    <div class="pill" data-freq="weekly">Weekly</div>
+  </div>
+</div>
+
+<div class="section">
+  <p class="lbl">Square footage</p>
+  <div class="size-grid">
+    <div class="pill" data-sz="1000">1000</div>
+    <div class="pill" data-sz="1500">1500</div>
+    <div class="pill on" data-sz="2000">2000</div>
+    <div class="pill" data-sz="2500">2500</div>
+    <div class="pill" data-sz="3000">3000</div>
+    <div class="pill" data-sz="3500">3500</div>
+    <div class="pill" data-sz="4000">4000</div>
+    <div class="pill" id="sz-custom">Other</div>
+  </div>
+</div>
+
+<div class="section">
+  <p class="lbl">Add-ons</p>
+  <div class="addons-grid" id="addons"></div>
+</div>
+
+<div class="section">
+  <p class="lbl">Per-room add-ons</p>
+  <div class="room-row" id="bb-row">
+    <span class="room-label">Baseboards</span>
+    <div class="stepper" data-key="baseboards"><button data-d="-1">−</button><span class="val" id="bb-val">0</span><button data-d="1">+</button></div>
+    <span class="room-hint">$10 / room</span>
+  </div>
+  <div class="room-row">
+    <span class="room-label">Blinds</span>
+    <div class="stepper" data-key="blinds"><button data-d="-1">−</button><span class="val" id="bl-val">0</span><button data-d="1">+</button></div>
+    <span class="room-hint">$10 / room</span>
+  </div>
+</div>
+
+<div class="section">
+  <p class="lbl">Discount</p>
+  <div class="discount-row">
+    <input type="range" id="disc" min="0" max="25" value="0" step="5">
+    <span class="discount-out" id="disc-out">0%</span>
+  </div>
+</div>
+
+<div class="quote-card">
+  <p class="quote-head">Quote</p>
+  <p class="quote-num"><span class="quote-strk" id="q-strk" style="display:none">$0</span><span id="q-total">$0</span></p>
+  <div class="quote-meta">
+    <span><strong id="q-time">~0 hrs</strong> · job time</span>
+    <span><strong>2 cleaners</strong></span>
+    <span id="q-freq-meta" style="display:none"></span>
+  </div>
+
+  <div class="owner-toggle" id="owner-toggle-wrap" style="display:none">
+    <span class="ot-lbl">Show profit &amp; margin</span>
+    <div class="toggle" id="owner-tog"></div>
+  </div>
+
+  <div class="owner-panel" id="owner-panel">
+    <div class="owner-grid">
+      <div class="metric"><p class="m-lbl">Payroll</p><p class="m-val" id="m-pay">$0</p></div>
+      <div class="metric"><p class="m-lbl">Profit (job)</p><p class="m-val good" id="m-prof">$0</p></div>
+      <div class="metric"><p class="m-lbl">Profit / hr</p><p class="m-val" id="m-perhr">$0/hr</p></div>
+      <div class="metric"><p class="m-lbl">Margin</p><p class="m-val" id="m-marg">0%</p></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="save-btn" class="primary">Save</button>
+    <button id="copy-btn">Copy</button>
+    <button id="share-btn">Share</button>
+    <button id="reset-btn">Reset</button>
+  </div>
+</div>
+
+</div>
+
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 class="modal-title" id="modal-title">Info</h3>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// Owner mode: enabled by ?o=1 in URL
+const OWNER_MODE = new URLSearchParams(location.search).get('o') === '1';
+
+// Pricing data from Mopp Cleaning pricing guide
+const RATES = {
+  onetime:  {1000:.145,1500:.145,2000:.135,2500:.135,3000:.125,3500:.125,4000:.115},
+  biweekly: {1000:.125,1500:.125,2000:.115,2500:.115,3000:.105,3500:.105,4000:.095},
+  weekly:   {1000:.110,1500:.100,2000:.095,2500:.090,3000:.085,3500:.080,4000:.075},
+  deep:     {1000:.205,1500:.205,2000:.190,2500:.185,3000:.180,3500:.175,4000:.170},
+  movein:   {1000:.320,1500:.315,2000:.310,2500:.305,3000:.300,3500:.295,4000:.290},
+  postcon:  {1000:.500,1500:.455,2000:.450,2500:.445,3000:.440,3500:.435,4000:.430}
+};
+// Total man-hours by service & sqft (from spreadsheet Est. Time column)
+const HOURS = {
+  onetime: {1000:3,1500:4,2000:5,2500:6,3000:7,3500:8,4000:9},
+  biweekly:{1000:3,1500:4,2000:5,2500:6,3000:7,3500:8,4000:9},
+  weekly:  {1000:3,1500:4,2000:5,2500:6,3000:7,3500:8,4000:9},
+  deep:    {1000:8,1500:9,2000:10,2500:11,3000:11,3500:12,4000:13},
+  movein:  {1000:10,1500:11,2000:12,2500:13,3000:14,3500:15,4000:16},
+  postcon: {1000:12,1500:13,2000:14,2500:15,3000:16,3500:17,4000:18}
+};
+const ADDONS = [
+  {id:'dishes',    name:'Dishes',        price:25},
+  {id:'fridge',    name:'Fridge',        price:50},
+  {id:'oven',      name:'Oven',          price:50},
+  {id:'laundry',   name:'Laundry',       price:50},
+  {id:'walls',     name:'Walls',         price:60},
+  {id:'doors',     name:'Doors',         price:35},
+  {id:'furniture', name:'Furniture vac', price:15}
+];
+const CLEANER_RATE = 20;
+const CLEANER_COUNT = 2;
+const FREQ_MONTHLY = { onetime: 0, biweekly: 2.17, weekly: 4.33 };
+
+const SVC_NAMES = {
+  standard: 'Standard cleaning',
+  deep: 'Deep cleaning',
+  movein: 'Move in / out cleaning',
+  postcon: 'Post-construction cleaning'
+};
+const SVC_INFO = {
+  standard: 'Routine cleaning of bathrooms, kitchen surfaces, floors, vacuuming, dusting accessible surfaces. Best for ongoing upkeep.',
+  deep: 'Standard cleaning plus baseboards, inside windows, cabinet fronts, light fixtures, and detailed dusting. Recommended every 3-6 months or as a first-time appointment.',
+  movein: 'Top-to-bottom of an empty home. Includes inside cabinets, inside fridge & oven, inside windows, and a full wipe-down of all surfaces.',
+  postcon: 'Construction dust removal from all surfaces, vent cleaning, paint fleck removal, debris pickup. Done after contractors leave.'
+};
+
+const state = {
+  svc: 'standard',
+  freq: 'biweekly',
+  sqft: 2000,
+  customSqft: null,
+  addons: {},
+  baseboards: 0,
+  blinds: 0,
+  discount: 0,
+  ownerView: false
+};
+
+// Linear interpolation across price tiers (handles in-between sqft values)
+function interp(map, x) {
+  const keys = Object.keys(map).map(Number).sort((a,b) => a-b);
+  if (x <= keys[0]) return map[keys[0]];
+  if (x >= keys[keys.length-1]) {
+    // For sizes above 4000, extrapolate using the rate trend at the top end
+    const last = keys[keys.length-1];
+    const prev = keys[keys.length-2];
+    const slope = (map[last] - map[prev]) / (last - prev);
+    return map[last] + slope * (x - last);
+  }
+  for (let i = 0; i < keys.length-1; i++) {
+    if (x >= keys[i] && x <= keys[i+1]) {
+      const t = (x - keys[i]) / (keys[i+1] - keys[i]);
+      return map[keys[i]] + t * (map[keys[i+1]] - map[keys[i]]);
+    }
+  }
+  return map[keys[0]];
+}
+const fmt = n => '$' + Math.round(n).toLocaleString();
+
+function effectiveSvc() {
+  return state.svc === 'standard' ? state.freq : state.svc;
+}
+
+function computeAddons() {
+  let t = 0;
+  ADDONS.forEach(a => { if (state.addons[a.id]) t += a.price; });
+  if (state.svc === 'standard') t += state.baseboards * 10;
+  t += state.blinds * 10;
+  return t;
+}
+
+function compute() {
+  const key = effectiveSvc();
+  const base = interp(RATES[key], state.sqft) * state.sqft;
+  const adds = computeAddons();
+  const sub = base + adds;
+  const discAmt = sub * (state.discount / 100);
+  const total = sub - discAmt;
+  const manHours = interp(HOURS[key], state.sqft);
+  const actHours = manHours / CLEANER_COUNT;
+  const payroll = manHours * CLEANER_RATE;
+  const profit = total - payroll;
+  const profitPerHr = actHours > 0 ? profit / actHours : 0;
+  const margin = total > 0 ? (profit / total) * 100 : 0;
+  return { base, adds, sub, discAmt, total, manHours, actHours, payroll, profit, profitPerHr, margin };
+}
+
+function renderAddons() {
+  const wrap = document.getElementById('addons');
+  wrap.innerHTML = '';
+  ADDONS.forEach(a => {
+    const on = !!state.addons[a.id];
+    const p = document.createElement('div');
+    p.className = 'pill' + (on ? ' on' : '');
+    p.innerHTML = a.name + ' <span class="price">$' + a.price + '</span>';
+    p.addEventListener('click', () => {
+      state.addons[a.id] = !state.addons[a.id];
+      renderAddons();
+      recalc();
+    });
+    wrap.appendChild(p);
+  });
+}
+
+function recalc() {
+  const r = compute();
+  const totalEl = document.getElementById('q-total');
+  const strkEl = document.getElementById('q-strk');
+  totalEl.textContent = fmt(r.total);
+  if (r.discAmt > 0) {
+    strkEl.style.display = 'inline';
+    strkEl.textContent = fmt(r.sub);
+  } else {
+    strkEl.style.display = 'none';
+  }
+  document.getElementById('q-time').textContent = '~' + r.actHours.toFixed(1) + ' hrs';
+
+  // Monthly meta for recurring services
+  const freqEl = document.getElementById('q-freq-meta');
+  const mult = FREQ_MONTHLY[effectiveSvc()];
+  if (mult > 0) {
+    freqEl.style.display = 'inline';
+    freqEl.innerHTML = '<strong>' + fmt(r.total * mult) + '</strong>/mo';
+  } else {
+    freqEl.style.display = 'none';
+  }
+
+  // Owner metrics
+  document.getElementById('m-pay').textContent = fmt(r.payroll);
+  const profEl = document.getElementById('m-prof');
+  profEl.textContent = fmt(r.profit);
+  profEl.className = 'm-val ' + (r.profit < 0 ? 'bad' : r.margin < 30 ? 'warn' : 'good');
+  document.getElementById('m-perhr').textContent = fmt(r.profitPerHr) + '/hr';
+  document.getElementById('m-marg').textContent = Math.round(r.margin) + '%';
+
+  // Show/hide frequency section
+  document.getElementById('freq-section').style.display = state.svc === 'standard' ? 'block' : 'none';
+  // Hide baseboards for non-standard (per pricing guide note)
+  document.getElementById('bb-row').style.display = state.svc === 'standard' ? 'flex' : 'none';
+}
+
+// Pill selection wiring
+function bindPills(containerSelector, dataKey, onChange) {
+  const pills = document.querySelectorAll(containerSelector + ' .pill[data-' + dataKey + ']');
+  pills.forEach(p => {
+    p.addEventListener('click', () => {
+      const val = p.dataset[dataKey];
+      pills.forEach(x => x.classList.remove('on'));
+      p.classList.add('on');
+      onChange(val);
+    });
+  });
+}
+bindPills('#svc', 'svc', v => { state.svc = v; recalc(); });
+bindPills('.freq-grid', 'freq', v => { state.freq = v; recalc(); });
+
+document.querySelectorAll('.size-grid .pill[data-sz]').forEach(p => {
+  p.addEventListener('click', () => {
+    state.sqft = parseInt(p.dataset.sz);
+    state.customSqft = null;
+    document.querySelectorAll('.size-grid .pill').forEach(x => x.classList.remove('on'));
+    p.classList.add('on');
+    document.getElementById('sz-custom').textContent = 'Other';
+    recalc();
+  });
+});
+document.getElementById('sz-custom').addEventListener('click', () => {
+  const v = prompt('Enter square footage:', state.customSqft || state.sqft);
+  if (v === null) return;
+  const n = parseInt(v);
+  if (isNaN(n) || n < 100 || n > 20000) return;
+  state.sqft = n;
+  state.customSqft = n;
+  document.querySelectorAll('.size-grid .pill').forEach(x => x.classList.remove('on'));
+  const c = document.getElementById('sz-custom');
+  c.classList.add('on');
+  c.textContent = n.toLocaleString();
+  recalc();
+});
+
+// Steppers
+document.querySelectorAll('.stepper').forEach(s => {
+  const key = s.dataset.key;
+  const val = s.querySelector('.val');
+  s.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => {
+      const d = parseInt(b.dataset.d);
+      state[key] = Math.max(0, Math.min(30, state[key] + d));
+      val.textContent = state[key];
+      recalc();
+    });
+  });
+});
+
+// Discount slider
+const discEl = document.getElementById('disc');
+const discOut = document.getElementById('disc-out');
+discEl.addEventListener('input', e => {
+  state.discount = parseInt(e.target.value);
+  discOut.textContent = state.discount + '%';
+  recalc();
+});
+
+// Owner mode setup
+if (OWNER_MODE) {
+  document.getElementById('owner-toggle-wrap').style.display = 'flex';
+  document.getElementById('mode-tag').textContent = 'Owner view';
+} else {
+  document.getElementById('owner-toggle-wrap').style.display = 'none';
+}
+document.getElementById('owner-tog').addEventListener('click', () => {
+  state.ownerView = !state.ownerView;
+  document.getElementById('owner-tog').classList.toggle('on', state.ownerView);
+  document.getElementById('owner-panel').classList.toggle('shown', state.ownerView);
+});
+
+// Modal helpers
+const modalBg = document.getElementById('modal-bg');
+function openModal(title, html) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').innerHTML = html;
+  modalBg.classList.add('shown');
+}
+function closeModal() { modalBg.classList.remove('shown'); }
+document.getElementById('modal-close').addEventListener('click', closeModal);
+modalBg.addEventListener('click', e => { if (e.target === modalBg) closeModal(); });
+
+// Service info tooltip
+document.querySelector('.info[data-info="service"]').addEventListener('click', () => {
+  let html = '<p style="margin:0 0 8px;color:var(--text-2);font-size:13px;">What\'s typically included in each service tier:</p>';
+  Object.keys(SVC_NAMES).forEach(k => {
+    html += '<div style="margin-bottom:12px;"><strong style="font-size:13px;">' + SVC_NAMES[k] + '</strong><p style="margin:4px 0 0;font-size:13px;color:var(--text-2);">' + SVC_INFO[k] + '</p></div>';
+  });
+  openModal('Service descriptions', html);
+});
+
+// Quote summary text (used by Save / Copy / Share)
+function quoteSummary() {
+  const r = compute();
+  const svcLabel = state.svc === 'standard' ? SVC_NAMES.standard + ' (' + state.freq + ')' : SVC_NAMES[state.svc];
+  return {
+    summary: svcLabel + ' — ' + state.sqft.toLocaleString() + ' sqft — ' + fmt(r.total),
+    text: 'Mopp Cleaning quote\n' + svcLabel + '\n' + state.sqft.toLocaleString() + ' sqft\nEstimated time: ' + r.actHours.toFixed(1) + ' hrs with 2 cleaners\n\nTotal: ' + fmt(r.total) + (r.discAmt > 0 ? ' (' + state.discount + '% off ' + fmt(r.sub) + ')' : ''),
+    record: {
+      ts: Date.now(),
+      svc: state.svc,
+      freq: state.freq,
+      sqft: state.sqft,
+      addons: Object.keys(state.addons).filter(k => state.addons[k]),
+      baseboards: state.baseboards,
+      blinds: state.blinds,
+      discount: state.discount,
+      total: Math.round(r.total)
+    }
+  };
+}
+
+// Save to localStorage history (last 20)
+function saveQuote() {
+  const q = quoteSummary();
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem('mopp_quotes') || '[]'); } catch(e) {}
+  history.unshift(q.record);
+  history = history.slice(0, 20);
+  try { localStorage.setItem('mopp_quotes', JSON.stringify(history)); } catch(e) {}
+}
+document.getElementById('save-btn').addEventListener('click', e => {
+  saveQuote();
+  e.target.textContent = 'Saved ✓';
+  e.target.classList.add('copied');
+  setTimeout(() => { e.target.textContent = 'Save'; e.target.classList.remove('copied'); }, 1200);
+});
+
+// Copy quote
+document.getElementById('copy-btn').addEventListener('click', e => {
+  const text = quoteSummary().text;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch(err) {}
+    document.body.removeChild(ta);
+  }
+  e.target.textContent = 'Copied ✓';
+  e.target.classList.add('copied');
+  setTimeout(() => { e.target.textContent = 'Copy'; e.target.classList.remove('copied'); }, 1200);
+});
+
+// Native share
+document.getElementById('share-btn').addEventListener('click', () => {
+  const q = quoteSummary();
+  if (navigator.share) {
+    navigator.share({ title: 'Mopp Cleaning quote', text: q.text }).catch(() => {});
+  } else {
+    if (navigator.clipboard) navigator.clipboard.writeText(q.text);
+    alert('Sharing not supported on this device — copied to clipboard instead.');
+  }
+});
+
+// Reset
+document.getElementById('reset-btn').addEventListener('click', () => {
+  state.svc = 'standard';
+  state.freq = 'biweekly';
+  state.sqft = 2000;
+  state.customSqft = null;
+  state.addons = {};
+  state.baseboards = 0;
+  state.blinds = 0;
+  state.discount = 0;
+  document.querySelectorAll('.pill').forEach(x => x.classList.remove('on'));
+  document.querySelector('[data-svc="standard"]').classList.add('on');
+  document.querySelector('[data-freq="biweekly"]').classList.add('on');
+  document.querySelector('[data-sz="2000"]').classList.add('on');
+  document.getElementById('bb-val').textContent = '0';
+  document.getElementById('bl-val').textContent = '0';
+  document.getElementById('disc').value = 0;
+  document.getElementById('disc-out').textContent = '0%';
+  document.getElementById('sz-custom').textContent = 'Other';
+  renderAddons();
+  recalc();
+});
+
+// History viewer
+document.getElementById('history-btn').addEventListener('click', () => {
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem('mopp_quotes') || '[]'); } catch(e) {}
+  let html = '';
+  if (history.length === 0) {
+    html = '<p class="history-empty">No saved quotes yet. Tap Save on any quote to keep it here.</p>';
+  } else {
+    html = '<div class="history-list">';
+    history.forEach((h, i) => {
+      const date = new Date(h.ts);
+      const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+      const svcLabel = h.svc === 'standard' ? 'Standard / ' + h.freq : SVC_NAMES[h.svc].replace(' cleaning','');
+      html += '<div class="history-item" data-idx="' + i + '">';
+      html += '<div><div class="h-num">$' + h.total.toLocaleString() + '</div><div class="h-meta">' + svcLabel + ' · ' + h.sqft.toLocaleString() + ' sqft · ' + dateStr + '</div></div>';
+      html += '<button class="modal-close" data-del="' + i + '" title="Delete">×</button>';
+      html += '</div>';
+    });
+    html += '</div>';
+    html += '<button id="clear-history" style="margin-top:14px;width:100%;padding:10px;border:0.5px solid var(--border-2);border-radius:10px;background:none;font-size:13px;color:var(--text-2);cursor:pointer;">Clear all history</button>';
+  }
+  openModal('Recent quotes', html);
+
+  document.querySelectorAll('[data-del]').forEach(b => {
+    b.addEventListener('click', e => {
+      e.stopPropagation();
+      const idx = parseInt(b.dataset.del);
+      let hist = JSON.parse(localStorage.getItem('mopp_quotes') || '[]');
+      hist.splice(idx, 1);
+      localStorage.setItem('mopp_quotes', JSON.stringify(hist));
+      document.getElementById('history-btn').click();
+    });
+  });
+  const clearBtn = document.getElementById('clear-history');
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    if (confirm('Delete all saved quotes?')) {
+      localStorage.removeItem('mopp_quotes');
+      closeModal();
+    }
+  });
+});
+
+// Initial render
+renderAddons();
+recalc();
+</script>
+
+</body>
+</html>
