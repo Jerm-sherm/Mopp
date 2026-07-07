@@ -320,11 +320,14 @@ body { padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
 
   <div class="owner-panel" id="owner-panel">
     <div class="owner-grid">
+      <div class="metric"><p class="m-lbl">Team rate / hr</p><p class="m-val" id="m-teamrate">$0/hr</p></div>
+      <div class="metric"><p class="m-lbl">Billed time (crew on-site)</p><p class="m-val" id="m-billed">0 hrs</p></div>
       <div class="metric"><p class="m-lbl">Payroll</p><p class="m-val" id="m-pay">$0</p></div>
       <div class="metric"><p class="m-lbl">Profit (job)</p><p class="m-val good" id="m-prof">$0</p></div>
       <div class="metric"><p class="m-lbl">Profit / hr</p><p class="m-val" id="m-perhr">$0/hr</p></div>
       <div class="metric"><p class="m-lbl">Margin</p><p class="m-val" id="m-marg">0%</p></div>
     </div>
+    <p class="section-note" style="margin-top:10px;">Team rate = what the customer pays per hour the 2-cleaner crew is on-site (the guide's $/hr). Price = team rate &times; billed time. Profit/hr is that rate minus crew pay ($<span id="note-cleaner-rate">20</span>/hr &times; 2 cleaners).</p>
   </div>
 
   <div class="actions">
@@ -470,7 +473,10 @@ function compute() {
   const profit = total - payroll;
   const profitPerHr = actHours > 0 ? profit / actHours : 0;
   const margin = total > 0 ? (profit / total) * 100 : 0;
-  return { base, adds, sub, discAmt, total, manHours, actHours, payroll, profit, profitPerHr, margin };
+  // Effective team billing rate = what the customer pays per on-site team-hour.
+  // For a clean job (no add-ons/discount) this equals the guide's team rate ($75/$65/$95).
+  const teamRate = actHours > 0 ? total / actHours : 0;
+  return { base, adds, sub, discAmt, total, manHours, actHours, payroll, profit, profitPerHr, margin, teamRate };
 }
 
 function renderAddons() {
@@ -522,6 +528,8 @@ function recalc() {
   }
 
   // Owner metrics
+  document.getElementById('m-teamrate').textContent = fmt(r.teamRate) + '/hr';
+  document.getElementById('m-billed').textContent = r.actHours.toFixed(2).replace(/\.?0+$/,'') + ' hrs';
   document.getElementById('m-pay').textContent = fmt(r.payroll);
   const profEl = document.getElementById('m-prof');
   profEl.textContent = fmt(r.profit);
