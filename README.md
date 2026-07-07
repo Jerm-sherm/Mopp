@@ -2,10 +2,14 @@
 
 A single-file phone-friendly quote calculator for Mopp Cleaning. Built for the owners to use on-call, no recurring cost, no customer-facing exposure.
 
+## Pricing model (v2 — July 2026 guide)
+
+**Price = Estimated Time (team-hours) × Team Rate ($/hr).** Team rates: Standard one-time **$75**, Standard recurring (bi-weekly/monthly) **$65**, Deep **$95**, Move-in/out **$95**. Estimated team-hours come straight from the client's square-footage table (500–3,000 sqft; larger homes extrapolate). Post-construction is not in the new guide and stays on the previous per-sqft rates until the client publishes numbers.
+
 ## What it does
 
 - Quote a job in 3 taps: service → sqft → done.
-- Toggle bi-weekly / weekly to compare recurring revenue.
+- Toggle bi-weekly / monthly to compare recurring revenue.
 - Optional add-ons + per-room baseboards/blinds.
 - Discount slider 0–25%.
 - Owner-only profit panel (payroll, profit per job, profit/hr, margin) — hidden by default.
@@ -121,9 +125,9 @@ That's the whole project. The HTML file contains all CSS, all JS, all pricing da
 
 Things that fit cleanly into this architecture without adding cost:
 
-- Pricing changes → edit the `RATES` and `HOURS` objects in the script, commit.
-- New add-ons → add an entry to the `ADDONS` array.
-- New service type → add to `RATES`, `HOURS`, `SVC_NAMES`, `SVC_INFO`, plus one new pill in the service grid.
+- Pricing changes → edit the `TEAM_RATES` (dollars per team-hour) and `HOURS` (team-hours by sqft) objects in the script, commit. Price = `HOURS × TEAM_RATES`.
+- New add-ons → add an entry to the `ADDONS` array. Set `includedIn: ['deep','movein']` to auto-show it as "Included" (no charge) for services whose checklist already covers it.
+- New service type → add to `TEAM_RATES`, `HOURS`, `SVC_NAMES`, `SVC_INFO`, plus one new pill in the service grid.
 - Custom cleaner pay rate → change `CLEANER_RATE` constant near the top of the script.
 - Export saved history → button that downloads localStorage as JSON or CSV.
 
